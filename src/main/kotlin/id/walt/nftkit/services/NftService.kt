@@ -78,7 +78,8 @@ enum class Chain {
     ASTAR,
     MOONBEAM,
     UNIQUE,
-    OPAL
+    OPAL,
+    KAI
 }
 
 enum class EVMChain {
@@ -88,7 +89,8 @@ enum class EVMChain {
     SEPOLIA,
     MUMBAI,
     ASTAR,
-    MOONBEAM
+    MOONBEAM,
+    KAI
 }
 
 enum class TokenStandard {
@@ -442,6 +444,7 @@ object NftService {
                 Chain.MOONBEAM  -> throw Exception("MOONBEAM is not supported")
                 Chain.UNIQUE -> throw Exception("UNIQUE is not supported")
                 Chain.OPAL -> throw Exception("OPAL is not supported")
+                Chain.KAI -> throw Exception("KAI is not supported")
             }
 
             val result = fetchAccountNFTsTokensByAlchemy(account = account, url = url)

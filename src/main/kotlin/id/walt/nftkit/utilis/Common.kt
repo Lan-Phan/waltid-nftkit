@@ -96,7 +96,7 @@ object Common {
     }
 
     fun isEVMChain(chain: Chain): Boolean{
-        val EVMChains= listOf(Chain.ETHEREUM, Chain.POLYGON, Chain.GOERLI, Chain.SEPOLIA, Chain.MUMBAI)
+        val EVMChains= listOf(Chain.ETHEREUM, Chain.POLYGON, Chain.GOERLI, Chain.SEPOLIA, Chain.MUMBAI, Chain.KAI)
         if(chain in EVMChains) return true
         return false
     }

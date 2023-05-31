@@ -13,6 +13,7 @@ object ProviderFactory {
         EVMChain.MUMBAI -> MumbaiWeb3()
         EVMChain.ASTAR -> AstarWeb3()
         EVMChain.MOONBEAM -> MoonbeamWeb3()
+        EVMChain.KAI -> KaiWeb3()
     }
 }
 
