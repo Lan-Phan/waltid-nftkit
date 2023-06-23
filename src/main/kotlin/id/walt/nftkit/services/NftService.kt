@@ -40,6 +40,7 @@ data class NftMetadata(
     var description: String?= null,
     var name: String?=null,
     var image: String?=null,
+    var image_url: String?=null,
     var image_data: String?=null,
     var external_url: String?=null,
     val attributes: List<Attributes>?=null
@@ -185,6 +186,24 @@ data class Token(
     val timeStamp: Long
 )
 
+@Serializable
+data class NFTsKaiIndexerResult(
+    val nfts: List<NftTokenByKaiIndexer>,
+) {
+    @Serializable
+    data class NftTokenByKaiIndexer(
+        val owner: String,
+        val contract: String,
+        val balance: Long,
+        val tokenid: Long,
+        val blocknumber: Long,
+        val txhash: String,
+        val eindex: Long,
+        val index: Long,
+        val media: String,
+        val metadata: NftMetadata?,
+    )
+}
 
 /*@Serializable
 data class NFTsAlchemyResult(
@@ -457,6 +476,16 @@ object NftService {
         }
     }
 
+    // Kardiachain only
+    fun getAccountNFTsByKaiIndexer(account: String, contract: String?): List<NFTsKaiIndexerResult.NftTokenByKaiIndexer> {
+        return runBlocking {
+            val url = Values.KAI_MAINNET_INDEXER_URL
+
+            val result = fetchMetadataNFTsTokensByKaiIndexer(account = account, contract = contract, url = url)
+            return@runBlocking result
+        }
+    }
+
     fun updateMetadata(
         chain: EVMChain, contractAddress: String, tokenId: String, signedAccount: String?,
         key: String,
@@ -518,6 +547,23 @@ object NftService {
         }
     }
 
+    private suspend fun fetchMetadataNFTsTokensByKaiIndexer(
+        account: String,
+        contract: String?,
+        url: String
+    ): List<NFTsKaiIndexerResult.NftTokenByKaiIndexer> {
+
+        val nfts =
+            client.get("${url}nft?owner=$account&smartcontract=$contract") {
+                headers {
+                    append("ApiKey", WaltIdServices.loadApiKeys().apiKeys.kaiindexer)
+                }
+                contentType(ContentType.Application.Json)
+            }
+                .body<NFTsKaiIndexerResult>()
+
+        return nfts.nfts
+    }
 
     fun fetchIPFSData(uri: String): String {
         return runBlocking {

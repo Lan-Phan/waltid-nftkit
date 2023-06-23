@@ -31,6 +31,7 @@ object Values {
     const val ETHEREUM_TESTNET_SEPOLIA_ALCHEMY_URL = "https://eth-sepolia.g.alchemy.com/v2/"
     const val POLYGON_MAINNET_ALCHEMY_URL = "https://polygon-mainnet.g.alchemy.com/v2/"
     const val POLYGON_TESTNET_MUMBAI_ALCHEMY_URL = "https://polygon-mumbai.g.alchemy.com/v2/"
+    const val KAI_MAINNET_INDEXER_URL = "http://172.20.33.205:7000/v1/"
 
     const val TEZOS_MAINNET_BETTER_CALL_DEV = "https://better-call.dev/mainnet"
     const val TEZOS_GHOSTNET_BETTER_CALL_DEV = "https://better-call.dev/ghostnet"
